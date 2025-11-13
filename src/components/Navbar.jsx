@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Navigation() {
+export default function Navbar() {
     return (
         <nav>
             <Link className="home" to="/">
@@ -10,13 +10,13 @@ export default function Navigation() {
             <Link to="/catalog">Catalog</Link>
             {/* Logged-in users */}
             <div id="user">
-                <Link to="#">Add Game</Link>
+                <Link to="/create">Add Game</Link>
                 <Link to="#">Logout</Link>
             </div>
             {/* Guest users */}
             <div id="guest">
-                <Link to="#">Login</Link>
-                <Link to="#">Register</Link>
+                <Link to="/login">Login</Link>
+                <Link to="/register">Register</Link>
             </div>
         </nav>
     );
