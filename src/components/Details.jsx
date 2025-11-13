@@ -1,16 +1,25 @@
-import { useState } from "react";
-import { getOne } from "../services/gameServices";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { deleteOne, getOne } from "../services/gameServices";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function Details() {
     const [game, setGame] = useState({});
+    const navigate = useNavigate();
     const gameId = useParams().gameId;
 
-    const fetchGame = async () => {
-        const getGame = await getOne(gameId);
-        setGame(getGame);
+    useEffect(() => {
+        const fetchGame = async () => {
+            const getGame = await getOne(gameId);
+            setGame(getGame);
+        };
+        fetchGame();
+    }, [gameId]);
+
+    const deleteHandler = async (e) => {
+        e.preventDefault();
+        await deleteOne(gameId);
+        navigate("/catalog");
     };
-    fetchGame();
 
     return (
         <section id="game-details">
@@ -47,7 +56,11 @@ export default function Details() {
                     <Link to={`/edit/${game._id}`} className="button">
                         Edit
                     </Link>
-                    <Link to={`/delete/${game._id}`} className="button">
+                    <Link
+                        to={`/delete/${game._id}`}
+                        className="button"
+                        onClick={deleteHandler}
+                    >
                         Delete
                     </Link>
                 </div>

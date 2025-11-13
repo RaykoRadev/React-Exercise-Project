@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getAll } from "../services/gameServices";
 import SingleGame from "./SingleGame";
 
 export default function Home() {
     const [games, setGames] = useState(null);
 
-    (async () => {
-        const getGames = await getAll();
-        const lastThree = getGames.slice(0, 3);
-        setGames(lastThree);
-    })();
+    useEffect(() => {
+        (async () => {
+            const getGames = await getAll();
+            const lastThree = getGames.slice(0, 3);
+            setGames(lastThree);
+        })();
+    }, []);
 
     return (
         <section id="welcome-world">
