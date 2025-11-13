@@ -7,7 +7,8 @@ export default function Home() {
 
     (async () => {
         const getGames = await getAll();
-        setGames(getGames);
+        const lastThree = getGames.slice(0, 3);
+        setGames(lastThree);
     })();
 
     return (
