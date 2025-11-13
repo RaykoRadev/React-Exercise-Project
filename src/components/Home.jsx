@@ -1,4 +1,14 @@
+import { useState } from "react";
+import { getAll } from "../services/gameServices";
+
 export default function Home() {
+    const [games, setGames] = useState([]);
+
+    async () => {
+        const getGames = await getAll();
+        setGames(getGames);
+    };
+
     return (
         <section id="welcome-world">
             <div className="welcome-message">
@@ -9,6 +19,7 @@ export default function Home() {
             <div id="home-page">
                 <h1>Latest Games</h1>
                 <div id="latest-wrap">
+                    {games ? "" : <p class="no-articles">No games yet</p>}
                     {/* Display div: with information about every game (if any) */}
                     <div className="home-container">
                         <div className="game">
