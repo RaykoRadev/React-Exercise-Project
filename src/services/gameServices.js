@@ -1,8 +1,8 @@
+const BASE_URL = "http://localhost:3030/jsonstore/games";
+
 export async function getAll() {
     try {
-        const res = await fetch(
-            "http://localhost:3030/jsonstore/games?sortBy=_createdOn%20desc"
-        );
+        const res = await fetch(BASE_URL + "?sortBy=_createdOn%20desc");
         const data = await res.json();
 
         return Object.values(data);
@@ -11,10 +11,11 @@ export async function getAll() {
     }
 }
 
-export async function getOne() {
+export async function getOne(gameId) {
     try {
-        const res = await fetch("");
+        const res = await fetch(BASE_URL + `/${gameId}`);
         const data = await res.json();
+        return data;
     } catch (err) {
         alert(err.message);
     }
@@ -24,6 +25,7 @@ export async function editOne() {
     try {
         const res = await fetch("");
         const data = await res.json();
+        return data;
     } catch (err) {
         alert(err.message);
     }
@@ -33,6 +35,7 @@ export async function deleteOne() {
     try {
         const res = await fetch("");
         const data = await res.json();
+        return data;
     } catch (err) {
         alert(err.message);
     }

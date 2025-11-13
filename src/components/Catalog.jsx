@@ -4,7 +4,7 @@ import SingleGame from "./SingleGame";
 
 export default function Catalog() {
     const [games, setGames] = useState(null);
-
+    //? it will be better home and catalog to be with one fetch request, but is it a good idea to be stired in the app component
     (async () => {
         const getGames = await getAll();
         setGames(getGames);
