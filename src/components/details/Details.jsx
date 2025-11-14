@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { deleteOne, getOne } from "../services/gameServices";
+import { deleteOne, getOne } from "../../services/gameServices";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function Details() {
     const [game, setGame] = useState({});
     const navigate = useNavigate();
-    const gameId = useParams().gameId;
+    const { gameId } = useParams();
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -17,6 +17,15 @@ export default function Details() {
 
     const deleteHandler = async (e) => {
         e.preventDefault();
+
+        const isConfirmed = confirm(
+            `Are you sure you want to delete ${game.title}`
+        );
+
+        if (!isConfirmed) {
+            return;
+        }
+
         await deleteOne(gameId);
         navigate("/catalog");
     };

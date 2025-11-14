@@ -12,9 +12,7 @@ import Edit from "./components/Edit";
 function App() {
     return (
         <>
-            <header>
-                <Navbar />
-            </header>
+            <Navbar />
 
             <Routes>
                 <Route path="/" element={<Home />} />
@@ -27,9 +25,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
             </Routes>
 
-            <section>
-                <Footer />
-            </section>
+            <Footer />
         </>
     );
 }

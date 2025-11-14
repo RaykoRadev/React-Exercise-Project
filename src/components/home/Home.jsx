@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { getAll } from "../services/gameServices";
-import SingleGame from "./SingleGame";
+import { getAll } from "../../services/gameServices";
+import SingleGame from "../single-game/SingleGame";
 
 export default function Home() {
-    const [games, setGames] = useState(null);
+    const [games, setGames] = useState([]);
 
     useEffect(() => {
         (async () => {
             const getGames = await getAll();
-            const lastThree = getGames.slice(0, 3);
+            const lastThree = getGames
+                .sort((a, b) => b._createdOn - a._createdOn)
+                .slice(0, 3);
+
             setGames(lastThree);
         })();
     }, []);
@@ -24,14 +27,13 @@ export default function Home() {
                 <h1>Latest Games</h1>
                 <div id="latest-wrap">
                     <div className="home-container">
-                        {games ? (
-                            games.map((game) => (
-                                <SingleGame key={game._id} {...game} />
-                            ))
-                        ) : (
+                        {games.length === 0 && (
                             <p class="no-articles">No games yet</p>
                         )}
-                        {/* Display div: with information about every game (if any) */}
+
+                        {games.map((game) => (
+                            <SingleGame key={game._id} {...game} />
+                        ))}
                     </div>
                 </div>
             </div>
