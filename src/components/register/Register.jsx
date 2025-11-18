@@ -1,13 +1,12 @@
-import { useActionState } from "react";
-
 export default function Register() {
-    const submitHandler = (FormData) => {
-        console.log(FormData);
+    const submitAction = async (formData) => {
+        console.log(Object.fromEntries(formData));
+        const data = Object.fromEntries(formData);
     };
 
     return (
         <section id="register-page" className="content auth">
-            <form action={submitHandler} id="register">
+            <form action={submitAction} id="register">
                 <div className="container">
                     <div className="brand-logo" />
                     <h1>Register</h1>
@@ -35,7 +34,7 @@ export default function Register() {
                     <input
                         className="btn submit"
                         type="submit"
-                        defaultValue="Register"
+                        value="Register"
                     />
                 </div>
             </form>

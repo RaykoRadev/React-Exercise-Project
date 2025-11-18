@@ -1,7 +1,12 @@
 export default function Login() {
+    const submitHandler = (formData) => {
+        const email = formData.get("email");
+        const password = formData.get("password");
+        console.log(Object.fromEntries(formData));
+    };
     return (
         <section id="login-page">
-            <form id="login">
+            <form action={submitHandler} id="login">
                 <div className="container">
                     <h1>Login</h1>
                     <label htmlFor="email">Email</label>
@@ -18,11 +23,7 @@ export default function Login() {
                         name="password"
                         placeholder="Password"
                     />
-                    <input
-                        type="submit"
-                        className="btn submit"
-                        defaultValue="Login"
-                    />
+                    <input type="submit" className="btn submit" value="Login" />
                 </div>
             </form>
         </section>
