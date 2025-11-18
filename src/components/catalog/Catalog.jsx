@@ -16,7 +16,7 @@ export default function Catalog() {
         <section id="catalog-page">
             <h1>Catalog</h1>
             {games.length === 0 && (
-                <h3 class="no-articles">No Added Games Yet</h3>
+                <h3 className="no-articles">No Added Games Yet</h3>
             )}
 
             <div className="catalog-container">

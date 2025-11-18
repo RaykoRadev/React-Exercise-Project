@@ -1,13 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import Catalog from "./components/Catalog";
-import Details from "./components/Details";
-import CreateEdit from "./components/Create-EditGame";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Edit from "./components/Edit";
+import Home from "./components/home/Home";
+import Catalog from "./components/catalog/Catalog";
+import Details from "./components/details/Details";
+import CreateEdit from "./components/create-edit/Create-EditGame";
+import Login from "./components/login/Login";
+import Register from "./components/register/Register";
+import Navbar from "./components/navbar/Navbar";
+import Footer from "./components/footer/Footer";
 
 function App() {
     return (

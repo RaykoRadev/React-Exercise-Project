@@ -28,7 +28,7 @@ export default function Home() {
                 <div id="latest-wrap">
                     <div className="home-container">
                         {games.length === 0 && (
-                            <p class="no-articles">No games yet</p>
+                            <p className="no-articles">No games yet</p>
                         )}
 
                         {games.map((game) => (

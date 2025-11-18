@@ -90,7 +90,7 @@ export default function Details() {
                         </li>
                     </ul>
                     {/* Display paragraph: If there are no games in the database */}
-                    {/* <p class="no-comment">No comments.</p> */}
+                    {/* <p className="no-comment">No comments.</p> */}
                 </div>
             </div>
             {/* Add Comment ( Only for logged-in users, which is not creators of the current game ) */}

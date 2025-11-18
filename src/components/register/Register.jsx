@@ -1,7 +1,13 @@
+import { useActionState } from "react";
+
 export default function Register() {
+    const submitHandler = (FormData) => {
+        console.log(FormData);
+    };
+
     return (
         <section id="register-page" className="content auth">
-            <form id="register">
+            <form action={submitHandler} id="register">
                 <div className="container">
                     <div className="brand-logo" />
                     <h1>Register</h1>
