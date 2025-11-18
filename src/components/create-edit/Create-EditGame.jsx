@@ -62,7 +62,7 @@ export default function CreateEdit() {
                     <input
                         className="btn submit"
                         type="submit"
-                        defaultValue="ADD GAME"
+                        value="ADD GAME"
                     />
                 </div>
             </form>
