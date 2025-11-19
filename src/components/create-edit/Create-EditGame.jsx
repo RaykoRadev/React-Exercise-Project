@@ -20,9 +20,11 @@ export default function CreateEdit() {
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
+    let gId = "";
+
     if (pathname.includes("edit")) {
         const { gameId } = useParams();
-
+        gId = gameId;
         useEffect(() => {
             (async () => {
                 await setIsEdit(true);
@@ -54,7 +56,9 @@ export default function CreateEdit() {
         }
 
         if (isEdit) {
-            const game = await editOne(gameId, values);
+            const game = await editOne(gId, values);
+            setValues(initValues);
+            navigate(`/details/${gId}`);
         }
 
         const game = await createGame(values);
