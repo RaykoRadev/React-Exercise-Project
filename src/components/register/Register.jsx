@@ -3,14 +3,18 @@ import { validateformRegister } from "../../utils/validators";
 
 export default function Register() {
     const [errors, setErrors] = useState({});
+    const [userData, setUserData] = useState({});
 
     const submitAction = async (formData) => {
         console.log(Object.fromEntries(formData));
-        const userData = Object.fromEntries(formData);
-        setErrors(validateformRegister(userData));
+        const data = Object.fromEntries(formData);
+        setUserData(data);
+        setErrors(validateformRegister(data));
     };
 
     const inputStyle = (field) => errors[field] && "red-border";
+    const errorText = (field) =>
+        errors[field] && <p className="error-message">{errors[field]}</p>;
 
     return (
         <section id="register-page" className="content auth">
@@ -25,10 +29,10 @@ export default function Register() {
                         name="email"
                         placeholder="Your Email"
                         className={inputStyle("email")}
+                        defaultValue={userData.email && userData.email}
                     />
-                    {errors.email && (
-                        <p className="error-message">{errors.email}</p>
-                    )}
+
+                    {errorText("email")}
                     <label htmlFor="pass">Password:</label>
                     <input
                         type="password"
@@ -37,9 +41,7 @@ export default function Register() {
                         placeholder="Password"
                         className={inputStyle("password")}
                     />
-                    {errors.password && (
-                        <p className="error-message">{errors.password}</p>
-                    )}
+                    {errorText("password")}
                     <label htmlFor="con-pass">Confirm Password:</label>
                     <input
                         type="password"
@@ -48,9 +50,7 @@ export default function Register() {
                         placeholder="Repeat Password"
                         className={inputStyle("rePassword")}
                     />
-                    {errors.rePassword && (
-                        <p className="error-message">{errors.rePassword}</p>
-                    )}
+                    {errorText("rePassword")}
                     <input
                         className="btn submit"
                         type="submit"

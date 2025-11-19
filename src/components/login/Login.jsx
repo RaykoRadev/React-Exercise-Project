@@ -3,19 +3,19 @@ import { validateformLogin } from "../../utils/validators";
 
 export default function Login() {
     const [errors, setErrors] = useState({});
+    const [userData, setUserData] = useState({});
 
     const submitHandler = (formData) => {
         const email = formData.get("email");
         const password = formData.get("password");
         const validatedErrors = validateformLogin({ email, password });
+        setUserData({ email, password });
         setErrors(validatedErrors);
-
-        // if (errors) {
-        //     console.log(errors);
-        //     return <p>{errors.email ? errors.email : errors.password}</p>;
-        // }
     };
+
     const inputStyle = (field) => errors[field] && "red-border";
+    const errorText = (field) =>
+        errors[field] && <p className="error-message">{errors[field]}</p>;
 
     return (
         <section id="login-page">
@@ -29,10 +29,10 @@ export default function Login() {
                         name="email"
                         placeholder="Your Email"
                         className={inputStyle("email")}
+                        defaultValue={userData.email && userData.email}
                     />
-                    {errors.email && (
-                        <p className="error-message">{errors.email}</p>
-                    )}
+                    {errorText("email")}
+
                     <label htmlFor="login-pass">Password</label>
                     <input
                         type="password"
@@ -41,9 +41,7 @@ export default function Login() {
                         placeholder="Password"
                         className={inputStyle("password")}
                     />
-                    {errors.password && (
-                        <p className="error-message">{errors.password}</p>
-                    )}
+                    {errorText("password")}
                     <input type="submit" className="btn submit" value="Login" />
                 </div>
             </form>
