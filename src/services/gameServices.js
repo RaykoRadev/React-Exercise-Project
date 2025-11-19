@@ -77,3 +77,20 @@ export async function getComments(gameId) {
         alert(err.message);
     }
 }
+
+export async function createComment(gameData) {
+    try {
+        const res = await fetch(BASE_COM_URL, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(gameData),
+        });
+        const data = await res.json();
+
+        return Object.values(data);
+    } catch (err) {
+        alert(err.message);
+    }
+}
