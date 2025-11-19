@@ -1,15 +1,26 @@
 import { useState } from "react";
 import { validateformRegister } from "../../utils/validators";
+import Login from "../login/Login";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
     const [errors, setErrors] = useState({});
     const [userData, setUserData] = useState({});
+    const navigate = useNavigate();
 
     const submitAction = async (formData) => {
         console.log(Object.fromEntries(formData));
         const data = Object.fromEntries(formData);
         setUserData(data);
-        setErrors(validateformRegister(data));
+
+        const errorData = validateformRegister(data);
+        setErrors(errorData);
+
+        if (errorData.email || errorData.password || errorData.rePassword) {
+            return;
+        }
+        console.log("Request sent!");
+        navigate("/");
     };
 
     const inputStyle = (field) => errors[field] && "red-border";

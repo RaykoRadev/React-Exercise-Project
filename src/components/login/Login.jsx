@@ -1,16 +1,25 @@
 import { useState } from "react";
 import { validateformLogin } from "../../utils/validators";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const [errors, setErrors] = useState({});
     const [userData, setUserData] = useState({});
+    const navigate = useNavigate();
 
     const submitHandler = (formData) => {
         const email = formData.get("email");
         const password = formData.get("password");
-        const validatedErrors = validateformLogin({ email, password });
+        const errorData = validateformLogin({ email, password });
+
         setUserData({ email, password });
-        setErrors(validatedErrors);
+        setErrors(errorData);
+
+        if (errorData.email || errorData.password || errorData.rePassword) {
+            return;
+        }
+        console.log("Request sent!");
+        navigate("/");
     };
 
     const inputStyle = (field) => errors[field] && "red-border";
