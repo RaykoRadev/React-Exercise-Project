@@ -49,3 +49,49 @@ export function validateformLogin(userData) {
 
     return errorsObj;
 }
+
+export function validateFormCreate(data) {
+    const errorsObj = {};
+
+    if (data.title.length < 2) {
+        errorsObj.title = "title has to be at least 2 characters!";
+    }
+
+    if (!data.title) {
+        errorsObj.title = "title is required!";
+    }
+
+    if (data.genre.length < 3) {
+        errorsObj.genre = "genre has to be at least 53 characters!";
+    }
+
+    if (!data.genre) {
+        errorsObj.genre = "genre is required!";
+    }
+
+    if (data.players < 0) {
+        errorsObj.players = "players has to be positive gigit!";
+    }
+
+    if (!data.players) {
+        errorsObj.players = "players is required!";
+    }
+
+    if (!data.date) {
+        errorsObj.date = "date is required!";
+    }
+
+    if (!data.imageUrl) {
+        errorsObj.imageUrl = "Image url is required!";
+    }
+
+    if (data.summary.length < 2) {
+        errorsObj.summary = "summary has to be at least 2 characters!";
+    }
+
+    if (!data.summary) {
+        errorsObj.summary = "summary is required!";
+    }
+
+    return errorsObj;
+}
