@@ -1,7 +1,59 @@
+import { useState } from "react";
+import { validateFormCreate } from "../../utils/validators";
+import { createGame } from "../../services/gameServices";
+import { useNavigate } from "react-router-dom";
+
+const initValues = {
+    title: "",
+    genre: "",
+    players: "",
+    date: "",
+    imageUrl: "",
+    summary: "",
+};
+
 export default function CreateEdit() {
+    const [values, setValues] = useState(initValues);
+    const [errors, setErrors] = useState({});
+    const [touched, setTouched] = useState({});
+    const navigate = useNavigate();
+
+    const getValues = (field) => (e) => {
+        const currentValue = e.target.value;
+        setValues((prev) => ({ ...prev, [field]: currentValue }));
+
+        setTouched((prev) => ({ ...prev, [e.target.name]: true }));
+
+        const errors = validateFormCreate(values);
+        setErrors(errors);
+    };
+
+    const submitForm = async () => {
+        const errors = validateFormCreate(values);
+        setErrors(errors);
+
+        if (Object.keys(errors).length > 0) {
+            return;
+        }
+
+        const game = await createGame(values);
+        setValues(initValues);
+
+        navigate("/catalog");
+    };
+
+    // const errorData = validateFormCreate(values);
+    // setErrors(errorData);
+
+    const inputStyle = (field) =>
+        errors[field] && touched[field] && "red-border";
+    const errorText = (field) =>
+        errors[field] &&
+        touched[field] && <p className="error-message">{errors[field]}</p>;
+
     return (
         <section id="add-page">
-            <form id="add-new-game">
+            <form action={submitForm} id="add-new-game">
                 <div className="container">
                     <h1>Add New Game</h1>
                     <div className="form-group-half">
@@ -9,9 +61,12 @@ export default function CreateEdit() {
                         <input
                             type="text"
                             id="gameName"
-                            name="gameName"
+                            name="title"
                             placeholder="Enter game title..."
+                            onBlur={getValues("title")}
+                            className={inputStyle("title")}
                         />
+                        {errorText("title")}
                     </div>
                     <div className="form-group-half">
                         <label htmlFor="genre">Genre:</label>
@@ -20,25 +75,34 @@ export default function CreateEdit() {
                             id="genre"
                             name="genre"
                             placeholder="Enter game genre..."
+                            onBlur={getValues("genre")}
+                            className={inputStyle("genre")}
                         />
+                        {errorText("genre")}
                     </div>
                     <div className="form-group-half">
                         <label htmlFor="activePlayers">Active Players:</label>
                         <input
                             type="number"
                             id="activePlayers"
-                            name="activePlayers"
+                            name="players"
                             min={0}
                             placeholder={0}
+                            onBlur={getValues("players")}
+                            className={inputStyle("Players")}
                         />
+                        {errorText("players")}
                     </div>
                     <div className="form-group-half">
                         <label htmlFor="releaseDate">Release Date:</label>
                         <input
                             type="date"
                             id="releaseDate"
-                            name="releaseDate"
+                            name="date"
+                            onBlur={getValues("date")}
+                            className={inputStyle("date")}
                         />
+                        {errorText("date")}
                     </div>
                     <div className="form-group-full">
                         <label htmlFor="imageUrl">Image URL:</label>
@@ -47,7 +111,10 @@ export default function CreateEdit() {
                             id="imageUrl"
                             name="imageUrl"
                             placeholder="Enter image URL..."
+                            onBlur={getValues("imageUrl")}
+                            className={inputStyle("ImageUrl")}
                         />
+                        {errorText("imageUrl")}
                     </div>
                     <div className="form-group-full">
                         <label htmlFor="summary">Summary:</label>
@@ -57,7 +124,10 @@ export default function CreateEdit() {
                             rows={5}
                             placeholder="Write a brief summary..."
                             defaultValue={""}
+                            onBlur={getValues("summary")}
+                            className={inputStyle("summary")}
                         />
+                        {errorText("summary")}
                     </div>
                     <input
                         className="btn submit"

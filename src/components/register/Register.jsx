@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { validateformRegister } from "../../utils/validators";
-import Login from "../login/Login";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
@@ -9,7 +8,6 @@ export default function Register() {
     const navigate = useNavigate();
 
     const submitAction = async (formData) => {
-        console.log(Object.fromEntries(formData));
         const data = Object.fromEntries(formData);
         setUserData(data);
 

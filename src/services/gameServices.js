@@ -42,3 +42,20 @@ export async function deleteOne(gameId) {
         alert(err.message);
     }
 }
+
+export async function createGame(gameData) {
+    try {
+        const res = await fetch(BASE_URL, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(gameData),
+        });
+        const data = await res.json();
+
+        return Object.values(data);
+    } catch (err) {
+        alert(err.message);
+    }
+}
