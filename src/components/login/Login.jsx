@@ -3,18 +3,20 @@ import { validateformLogin } from "../../utils/validators";
 
 export default function Login() {
     const [errors, setErrors] = useState({});
+
     const submitHandler = (formData) => {
         const email = formData.get("email");
         const password = formData.get("password");
-        const errors = validateformLogin({ email, password });
-        setErrors(errors);
+        const validatedErrors = validateformLogin({ email, password });
+        setErrors(validatedErrors);
 
-        if (errors) {
-            console.log(errors);
-            return <p>{errors.email ? errors.email : errors.password}</p>;
-        }
+        // if (errors) {
+        //     console.log(errors);
+        //     return <p>{errors.email ? errors.email : errors.password}</p>;
+        // }
     };
     const inputStyle = (field) => errors[field] && "red-border";
+
     return (
         <section id="login-page">
             <form action={submitHandler} id="login">
