@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { validateFormCreate, validateformLogin } from "../../utils/validators";
-import { createGame } from "../../services/gameServices";
-import { useNavigate } from "react-router-dom";
+import { createGame, getOne } from "../../services/gameServices";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const initValues = {
     title: "",
@@ -16,7 +16,23 @@ export default function CreateEdit() {
     const [values, setValues] = useState(initValues);
     const [errors, setErrors] = useState({});
     const [touched, setTouched] = useState({});
+    const [isEdit, setIsEdit] = useState(false);
+    const { pathname } = useLocation();
     const navigate = useNavigate();
+
+    if (pathname.includes("edit")) {
+        const { gameId } = useParams();
+
+        useEffect(() => {
+            (async () => {
+                await setIsEdit(true);
+                const getGame = await getOne(gameId);
+                console.log("getGame: ", getGame);
+
+                setValues(getGame);
+            })();
+        }, [gameId]);
+    }
 
     const getValues = (field) => (e) => {
         const currentValue = e.target.value;
@@ -53,7 +69,7 @@ export default function CreateEdit() {
         <section id="add-page">
             <form action={submitForm} id="add-new-game">
                 <div className="container">
-                    <h1>Add New Game</h1>
+                    <h1>{isEdit ? "Edit " : "Add New "}Game</h1>
                     <div className="form-group-half">
                         <label htmlFor="gameName">Game Name:</label>
                         <input
@@ -135,7 +151,7 @@ export default function CreateEdit() {
                     <input
                         className="btn submit"
                         type="submit"
-                        value="ADD GAME"
+                        value={isEdit ? "EDIT GAME" : "ADD GAME"}
                     />
                 </div>
             </form>
