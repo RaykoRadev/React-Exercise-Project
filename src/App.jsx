@@ -7,6 +7,7 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
+import Comments from "./components/comments/Comments";
 
 function App() {
     return (
@@ -17,7 +18,9 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/catalog" element={<Catalog />} />
                 <Route path="/create" element={<CreateEdit />} />
-                <Route path="/details/:gameId" element={<Details />} />
+                <Route path="/details/:gameId" element={<Details />}>
+                    <Route index element={<Comments />} />
+                </Route>
                 <Route path="/edit/:gameId" element={<CreateEdit />} />
 
                 <Route path="/login" element={<Login />} />

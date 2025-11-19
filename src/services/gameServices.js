@@ -1,4 +1,5 @@
 const BASE_URL = "http://localhost:3030/jsonstore/games";
+const BASE_COM_URL = "http://localhost:3030/jsonstore/comments";
 
 export async function getAll() {
     try {
@@ -59,6 +60,19 @@ export async function createGame(gameData) {
         const data = await res.json();
 
         return Object.values(data);
+    } catch (err) {
+        alert(err.message);
+    }
+}
+
+export async function getComments(gameId) {
+    console.log("from servise:", gameId);
+    try {
+        const res = await fetch(
+            BASE_COM_URL + `?where=gameId%3D%22${gameId}%22`
+        );
+        const data = await res.json();
+        return data;
     } catch (err) {
         alert(err.message);
     }
