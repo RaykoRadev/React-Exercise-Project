@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { validateFormCreate, validateformLogin } from "../../utils/validators";
-import { createGame, getOne } from "../../services/gameServices";
+import { createGame, editOne, getOne } from "../../services/gameServices";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const initValues = {
@@ -51,6 +51,10 @@ export default function CreateEdit() {
 
         if (Object.keys(errors).length > 0) {
             return;
+        }
+
+        if (isEdit) {
+            const game = await editOne(gameId, values);
         }
 
         const game = await createGame(values);

@@ -21,9 +21,13 @@ export async function getOne(gameId) {
     }
 }
 
-export async function editOne() {
+export async function editOne(gameId, gameData) {
     try {
-        const res = await fetch("");
+        const res = await fetch(BASE_URL + `/${gameId}`, {
+            method: "PUT",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(gameData),
+        });
         const data = await res.json();
         return data;
     } catch (err) {
