@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { validateFormCreate } from "../../utils/validators";
+import { useEffect, useState } from "react";
+import { validateFormCreate, validateformLogin } from "../../utils/validators";
 import { createGame } from "../../services/gameServices";
 import { useNavigate } from "react-router-dom";
 
@@ -23,10 +23,11 @@ export default function CreateEdit() {
         setValues((prev) => ({ ...prev, [field]: currentValue }));
 
         setTouched((prev) => ({ ...prev, [e.target.name]: true }));
-
-        const errors = validateFormCreate(values);
-        setErrors(errors);
     };
+
+    useEffect(() => {
+        setErrors(validateFormCreate(values));
+    }, [values]);
 
     const submitForm = async () => {
         const errors = validateFormCreate(values);
@@ -41,9 +42,6 @@ export default function CreateEdit() {
 
         navigate("/catalog");
     };
-
-    // const errorData = validateFormCreate(values);
-    // setErrors(errorData);
 
     const inputStyle = (field) =>
         errors[field] && touched[field] && "red-border";
@@ -65,6 +63,7 @@ export default function CreateEdit() {
                             placeholder="Enter game title..."
                             onBlur={getValues("title")}
                             className={inputStyle("title")}
+                            defaultValue={values.title}
                         />
                         {errorText("title")}
                     </div>
@@ -77,6 +76,7 @@ export default function CreateEdit() {
                             placeholder="Enter game genre..."
                             onBlur={getValues("genre")}
                             className={inputStyle("genre")}
+                            defaultValue={values.genre}
                         />
                         {errorText("genre")}
                     </div>
@@ -90,6 +90,7 @@ export default function CreateEdit() {
                             placeholder={0}
                             onBlur={getValues("players")}
                             className={inputStyle("Players")}
+                            defaultValue={values.players}
                         />
                         {errorText("players")}
                     </div>
@@ -101,6 +102,7 @@ export default function CreateEdit() {
                             name="date"
                             onBlur={getValues("date")}
                             className={inputStyle("date")}
+                            defaultValue={values.date}
                         />
                         {errorText("date")}
                     </div>
@@ -113,6 +115,7 @@ export default function CreateEdit() {
                             placeholder="Enter image URL..."
                             onBlur={getValues("imageUrl")}
                             className={inputStyle("ImageUrl")}
+                            defaultValue={values.imageUrl}
                         />
                         {errorText("imageUrl")}
                     </div>
@@ -123,7 +126,7 @@ export default function CreateEdit() {
                             id="summary"
                             rows={5}
                             placeholder="Write a brief summary..."
-                            defaultValue={""}
+                            defaultValue={values.summary}
                             onBlur={getValues("summary")}
                             className={inputStyle("summary")}
                         />
