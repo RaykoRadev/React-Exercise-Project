@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { deleteOne, getOne } from "../../services/gameServices";
-import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Comments from "../comments/Comments";
+import CreateComment from "../create-comment/CreateComment";
 
 export default function Details() {
     const [game, setGame] = useState({});
+    const [addedCom, setAddedCom] = useState(false);
     const navigate = useNavigate();
     const { gameId } = useParams();
+    console.log(addedCom);
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -75,24 +79,11 @@ export default function Details() {
                 </div>
 
                 {/* comments section */}
-                <Outlet context={gameId} />
+                <Comments gameId={gameId} addCom={addedCom} />
             </div>
             {/* Add Comment ( Only for logged-in users, which is not creators of the current game ) */}
-            <article className="create-comment">
-                <label>Add new comment:</label>
-                <form className="form">
-                    <textarea
-                        name="comment"
-                        placeholder="Comment......"
-                        defaultValue={""}
-                    />
-                    <input
-                        className="btn submit"
-                        type="submit"
-                        defaultValue="Add Comment"
-                    />
-                </form>
-            </article>
+            {/* creating comment */}
+            <CreateComment gameId={gameId} addCom={setAddedCom} />
         </section>
     );
 }

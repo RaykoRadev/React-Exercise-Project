@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
 import { getComments } from "../../services/gameServices";
 
-export default function Comments() {
+export default function Comments({ gameId, addCom }) {
     const [comments, setComments] = useState([]);
-    const gameId = useOutletContext();
 
     useEffect(() => {
         (async () => {
@@ -15,7 +13,7 @@ export default function Comments() {
 
             setComments(comArr);
         })();
-    }, [gameId]);
+    }, [gameId, addCom]);
 
     return (
         <div className="details-comments">

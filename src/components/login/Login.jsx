@@ -15,7 +15,7 @@ export default function Login() {
         setUserData({ email, password });
         setErrors(errorData);
 
-        if (errorData.email || errorData.password || errorData.rePassword) {
+        if (errorData.email || errorData.password) {
             return;
         }
         console.log("Request sent!");
